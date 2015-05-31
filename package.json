@@ -1,0 +1,11 @@
+{
+  "name": "markdown editor",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.html",
+  "window":{
+	"toolbar": true
+  },
+  "author": "Yasin Ge",
+  "license": "GPL v3"
+}

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>markdown editor</title>
+	<script src="./jquery-1.7.1.js"></script>
+	<style>
+		*{font-size:18px;margin:0}
+		html,body{height:100%}
+		.left{width:50%;height:100%;float:left;}
+		.right{width:50%;height:100%;float:left;}
+		.left textarea{width:98%;height:100%;background:transparent;border-style:none;}
+	</style>
+  </head>
+  <body>
+	<div class="left"><textarea></textarea></div>
+	<div class="right"></div>
+	<input id="fileDialog" type="file" nwsaveas />
+	<a id="save">保存</a>
+	<script>
+		var markdown = require('markdown').markdown;
+		var fs = require('fs');	
+		
+		$(function(){
+			$('.left textarea').on('keyup',function(){
+				var content = $(this).val();
+				content = markdown.toHTML(content);
+				var $right = $('.right');
+				$right.html(content);
+				$right.find('a').attr('href','#');
+			});
+			
+			$('#fileDialog').on('change',function(){
+				fs.writeFileSync($(this).val(),$('.left textarea').val());
+				$(this).val("");
+			});
+			
+			
+			var $fileDialog = $('#fileDialog');
+			$fileDialog.hide();
+			
+			$('#save').click(function(){
+				$fileDialog.trigger('click');
+			});
+			
+		});
+		
+
+	</script>
+  </body>
+</html>
